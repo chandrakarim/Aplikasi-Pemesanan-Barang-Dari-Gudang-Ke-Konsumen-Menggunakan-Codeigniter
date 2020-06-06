@@ -3,7 +3,7 @@
         <div class="card shadow-sm border-bottom-primary">
             <div class="card-header bg-white py-3">
                 <h4 class="h5 align-middle m-0 font-weight-bold text-primary">
-                    Form Laporan
+                    Form Transaksi
                 </h4>
             </div>
             <div class="card-body">
@@ -29,7 +29,7 @@
                         <div class="input-group">
                             <select name="konsumen_id" id="konsumen_id" class="custom-select barang_keluar">
                                 <option value="" selected disabled>Pilih Konsumen</option>
-                                <?php foreach ($konsumen as $k) : ?>
+                                <?php foreach ($konsumen as $k) : ?>       
                                     <option <?= set_select('konsumen_id', $k['id_konsumen']) ?> value="<?= $k['id_konsumen'] ?>"><?= $k['nama_konsumen'] ?></option>
                                 <?php endforeach; ?>
                             </select>

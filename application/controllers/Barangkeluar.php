@@ -11,30 +11,6 @@ class Barangkeluar extends CI_Controller
         $this->load->model('Admin_model', 'admin');
         $this->load->library('form_validation');
     }
-
-    public function index()
-    {
-         $barangs = $this->admin->getBarangkeluar();
-        foreach ($barangs as $barang){
-            $harga = $barang['harga'];
-           
-            $jumlah_keluar = $barang['jumlah_keluar'];
-            $kalkulasi = $harga * $jumlah_keluar;
-        
-            $harga_barang=["total_harga"=> $kalkulasi];
-           
-            $result[] = array_merge($harga_barang, $barang); 
-            //continue;
-        }
-
-       $data['title'] = "Barang Keluar";
-       $data['barangkeluar'] = $this->admin->getBarangkeluar();
-       $data['barangkeluar'] = $result;
-
-       // dd($data);
-        $this->template->load('templates/dashboard', 'barang_keluar/data', $data);
-    }
-
     private function _validasi()
     {
         $this->form_validation->set_rules('tanggal_keluar', 'Tanggal Keluar', 'required|trim');
@@ -55,6 +31,33 @@ class Barangkeluar extends CI_Controller
             ]
         );
     }
+
+
+    public function index()
+    {
+        $result =  array();
+         $barangs = $this->admin->getBarangkeluar();
+        foreach ($barangs as $barang){
+            $harga = $barang['harga'];
+           
+            $jumlah_keluar = $barang['jumlah_keluar'];
+            $kalkulasi = $harga * $jumlah_keluar;
+        
+            $harga_barang=["total_harga"=> $kalkulasi];
+           
+            $result[] = array_merge($harga_barang, $barang); 
+            //continue;
+        }
+    
+
+       $data['title'] = "Barang Keluar";
+       $data['barangkeluar'] = $this->admin->getBarangkeluar();
+    $data['barangkeluar'] = $result;
+
+       // dd($data);
+        $this->template->load('templates/dashboard', 'barang_keluar/data', $data);
+    }
+
 
  public function add()
     {

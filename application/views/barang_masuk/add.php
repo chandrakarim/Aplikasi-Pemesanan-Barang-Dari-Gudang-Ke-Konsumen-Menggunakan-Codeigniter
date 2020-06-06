@@ -26,21 +26,29 @@
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="id_barang_masuk">ID Transaksi Barang Masuk</label>
                     <div class="col-md-4">
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-id-card"></i></span>
+                    </div> 
                         <input value="<?= $id_barang_masuk; ?>" type="text" readonly="readonly" class="form-control">
+                        </div>
                         <?= form_error('id_barang_masuk', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="tanggal_masuk">Tanggal Masuk</label>
                     <div class="col-md-4">
-                        <input value="<?= set_value('tanggal_masuk', date('Y-m-d')); ?>" name="tanggal_masuk" id="tanggal_masuk" type="text" class="form-control fhfghghvghv" placeholder="Tanggal Masuk...">
+                        <input value="<?= set_value('tanggal_masuk', date('Y-m-d')); ?>" name="tanggal_masuk" id="tanggal_masuk" type="text" class="form-control date" placeholder="Tanggal Masuk...">
                         <?= form_error('tanggal_masuk', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="gudang_id">Gudang</label>
                     <div class="col-md-5">
-                        <div class="input-group">
+                    <div class="input-group"> 
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-warehouse"></i></span>
+                    </div> 
                             <select name="gudang_id" id="gudang_id" class="custom-select">
                                 <option value="" selected disabled>Pilih Gudang</option>
                                 <?php foreach ($gudang as $g) : ?>
@@ -57,7 +65,10 @@
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="barang_id">Barang</label>
                     <div class="col-md-5">
-                        <div class="input-group">
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-boxes"></i></span>
+                    </div> 
                             <select name="barang_id" id="barang_id" class="custom-select">
                                 <option value="" selected disabled>Pilih Barang</option>
                                 <?php foreach ($barang as $b) : ?>

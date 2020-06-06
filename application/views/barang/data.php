@@ -46,7 +46,7 @@
                             <td><?= $b['nama_jenis']; ?></td>
                             <td><?= $b['stok']; ?></td>
                             <td><?= $b['nama_satuan']; ?></td>
-                            <td><?= $b['harga']; ?></td>
+                            <td><?= number_format($b['harga']); ?></td>
                             <th>
                                 <a href="<?= base_url('barang/edit/') . $b['id_barang'] ?>" class="btn btn-circle btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                 <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('barang/delete/') . $b['id_barang'] ?>" class="btn btn-circle btn-danger btn-sm"><i class="fa fa-trash"></i></a>

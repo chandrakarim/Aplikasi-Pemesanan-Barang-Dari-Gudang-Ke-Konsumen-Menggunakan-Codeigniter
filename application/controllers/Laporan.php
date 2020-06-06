@@ -25,6 +25,7 @@ class Laporan extends CI_Controller
 
             $input = $this->input->post('konsumen_id', true);
             $konsumen = $this->admin->get('konsumen', ['id_konsumen' => $input]);
+             
             $konsumen_valid = $konsumen ;
     
             $this->form_validation->set_rules(
@@ -47,7 +48,7 @@ class Laporan extends CI_Controller
             $input = $this->input->post(null, true);
             $table = $input['transaksi'];
             $tanggal = $input['tanggal'];
-
+            // jikiaf,eldse
             if ($table == "barang_keluar"){
                 $konsumen_id = $input['konsumen_id'];
             }
@@ -62,6 +63,9 @@ class Laporan extends CI_Controller
             } else {
                 
                 $query = $this->admin->getBarangKeluar(null, null, ['mulai' => $mulai, 'akhir' => $akhir],  $konsumen_id);
+                if ($query == Null){
+                    set_pesan('Maaf Konsumen Tidak Memiliki Riwayat Transaksi', false);
+                    redirect('Laporan');                }
             }
            
             $this->_cetak($query, $table, $tanggal);
@@ -76,12 +80,14 @@ class Laporan extends CI_Controller
         $pdf = new FPDF();
         $pdf->AddPage('P', 'Letter');
         $pdf->SetFont('Times', 'B', 16);
-        $pdf->Cell(190, 7, 'Laporan ' . $table, 0, 1, 'C');
+        $pdf->Cell(190, 7, 'Transaksi ' . $table, 0, 1, 'C');
         $pdf->SetFont('Times', '', 10);
         $pdf->Cell(190, 6, 'Skripsi Aplikasi Pemesanan Barang  Dari Gudang Ke Konsumen Menggunakan Framework (Codeigneiter & Bootstrap) ' , 0, 1, 'C');
         $pdf->Cell(190, 6, 'Nama : Yakob Abner Ngutra Nim : 125410196', 0, 1, 'C');
         $pdf->Cell(190, 4, 'Tanggal : ' . $tanggal, 0, 1, 'C');
+
         $pdf->Ln(10);
+
 
         $pdf->SetFont('Arial', 'B', 10);
 
@@ -104,41 +110,69 @@ class Laporan extends CI_Controller
                 $pdf->Cell(55, 7, $d['nama_barang'], 1, 0, 'L');
                 $pdf->Cell(40, 7, $d['nama_gudang'], 1, 0, 'L');
                 $pdf->Cell(30, 7, $d['jumlah_masuk'] . ' ' . $d['nama_satuan'], 1, 0, 'C');
-                $pdf->Ln();
-            } else :
-            $pdf->Cell(10, 7, 'No.', 1, 0, 'C');
-            $pdf->Cell(25, 7, 'Tgl Keluar', 1, 0, 'C');
-            $pdf->Cell(35, 7, 'ID Transaksi', 1, 0, 'C');
-            $pdf->Cell(30, 7, 'Nama Konsumen', 1, 0, 'C');
-            $pdf->Cell(30, 7, 'Nama Barang', 1, 0, 'C');
-            $pdf->Cell(25, 7, 'Jumlah Keluar', 1, 0, 'C');
-            $pdf->Cell(20, 7, 'Harga', 1, 0, 'C');
-            $pdf->Cell(20, 7, 'Total Harga', 1, 0, 'C');
+                $pdf->Ln();  
+            } 
+            $namak = (userdata('nama'));
+            $date =  date("d-m-Y");
+            $pdf->Cell(200, 75, 'Tanggal : ' . $date, 0, 1, 'R');
+            $pdf->Cell(200, 7,  $namak, 0, 1, 'R');
             $pdf->Ln();
+            
+            else :
+                $pdf->SetFont('Times', '', 10);
+                foreach ($data as $d) {
+                    $nama = $d['nama_konsumen']; 
+                    $alamat = $d['alamat_konsumen']; 
+                    $tlp = $d['no_tlp']; 
+    
+                }
+                $pdf->Cell(190, 4,'Nama Konsumen : '. $nama, 0, 1, 'L');
+                $pdf->Cell(190, 4,'Alamat : '. $alamat, 0, 1, 'L');
+                $pdf->Cell(190, 4,'Nomor Tlp : '. $tlp, 0, 1, 'L');
+                $pdf->Ln();
+
+            $pdf->SetFont('Arial', 'B', 10);
+            $pdf->Cell(20, 7, 'No.', 1, 0, 'C');
+            $pdf->Cell(30, 7, 'Tgl Keluar', 1, 0, 'C');
+            $pdf->Cell(35, 7, 'ID Transaksi', 1, 0, 'C');
+            $pdf->Cell(35, 7, 'Nama Barang', 1, 0, 'C');
+            $pdf->Cell(25, 7, 'Jumlah Keluar', 1, 0, 'C');
+            $pdf->Cell(25, 7, 'Harga', 1, 0, 'C');
+            $pdf->Cell(25, 7, 'Total Harga', 1, 0, 'C');
+            $pdf->Ln();
+
+
+       
+
 
             $no = 1;
             $total = $hasil = 0;
-
             foreach ($data as $d) {
                 $pdf->SetFont('Arial', '', 10);
-                $pdf->Cell(10, 7, $no++ . '.', 1, 0, 'C');
-                $pdf->Cell(25, 7, $d['tanggal_keluar'], 1, 0, 'C');
+                $pdf->Cell(20, 7, $no++ . '.', 1, 0, 'C');
+                $pdf->Cell(30, 7, $d['tanggal_keluar'], 1, 0, 'C');
                 $pdf->Cell(35, 7, $d['id_barang_keluar'], 1, 0, 'C');
-                $pdf->Cell(30, 7, $d['nama_konsumen'], 1, 0, 'L');
-                $pdf->Cell(30, 7, $d['nama_barang'], 1, 0, 'L');
+                $pdf->Cell(35, 7, $d['nama_barang'], 1, 0, 'L');
                 $pdf->Cell(25, 7, $d['jumlah_keluar'] . ' ' . $d['nama_satuan'], 1, 0, 'C');
-                $pdf->Cell(20, 7, $d['harga'], 1, 0, 'C');
+                $pdf->Cell(25, 7, number_format($d['harga']), 1, 0, 'C');
  
                 $hasil = $d['jumlah_keluar'] * $d['harga'];
                 $total = $hasil + $total;
-                $pdf->Cell(20, 7, $hasil, 1, 0, 'C');
+                $pdf->Cell(25, 7,number_format($hasil), 1, 0, 'C');
                 $pdf->Ln();
 
             }
+            
+            $namak = (userdata('nama'));
 
-            $pdf->Cell(155, 7, '', 0, 0, 'R');
-            $pdf->Cell(20, 7, 'Total Harga', 1, 0, 'C');
-            $pdf->Cell(20, 7,  $total, 1, 1, 'C');
+            $pdf->Cell(145, 7, '', 0, 0, 'R');
+            $pdf->Cell(25, 7, 'Total Harga', 1, 0, 'C');
+            $pdf->Cell(25, 7,'Rp '.number_format($total), 1, 1, 'C');
+            $pdf->Ln();
+            $date =  date("d-m-Y");
+            $pdf->Cell(200, 75, 'Tanggal : ' . $date, 0, 1, 'R');
+            $pdf->Cell(200, 7,  $namak, 0, 1, 'R');
+        
            
         endif;
         

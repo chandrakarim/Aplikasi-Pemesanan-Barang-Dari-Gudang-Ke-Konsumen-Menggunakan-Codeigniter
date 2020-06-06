@@ -67,7 +67,7 @@ class Auth extends CI_Controller
         redirect('auth');
     }
 
-    public function register()
+    /* public function register()
     {
         $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]|alpha_numeric');
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[3]|trim');
@@ -97,5 +97,5 @@ class Auth extends CI_Controller
                 redirect('register');
             }
         }
-    }
+    } */
 }

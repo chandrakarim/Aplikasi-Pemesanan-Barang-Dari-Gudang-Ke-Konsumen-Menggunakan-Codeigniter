@@ -296,7 +296,7 @@
 
         $(document).ready(function() {
             var table = $('#dataTable').DataTable({
-                buttons: ['copy', 'csv', 'print', 'excel', 'pdf'],
+                buttons: [],
                 dom: "<'row px-2 px-md-4 pt-2'<'col-md-3'l><'col-md-5 text-center'B><'col-md-4'f>>" +
                     "<'row'<'col-md-12'tr>>" +
                     "<'row px-2 px-md-4 py-3'<'col-md-5'i><'col-md-7'p>>",
@@ -316,13 +316,19 @@
     </script>
     <script type="text/javascript">
         let hal = '<?= $this->uri->segment(1); ?>';
-
         let satuan = $('#satuan');
         let stok = $('#stok');
         let total = $('#total_stok');
+        let harga = $('#harga');
+        let total_harga = $('#total_harga');
         let jumlah = hal == 'barangmasuk' ? $('#jumlah_masuk') : $('#jumlah_keluar');
 
         $(document).on('change', '#barang_id', function() {
+            var selectedCustomValue = $("select#barang_id option:selected").attr("data-harga");
+            $('input.harga').val(selectedCustomValue);
+
+
+//console.log(selectedCustomValue);
             let url = '<?= base_url('barang/getstok/'); ?>' + this.value;
             $.getJSON(url, function(data) {
                 satuan.html(data.nama_satuan);
@@ -332,14 +338,25 @@
             });
         });
 
-        $(document).on('keyup', '#jumlah_masuk', function() {
+        //'change paste keyup'
+        $(document).on('click blur keypress', '#jumlah_masuk', function() {
             let totalStok = parseInt(stok.val()) + parseInt(this.value);
             total.val(Number(totalStok));
         });
-
-        $(document).on('keyup', '#jumlah_keluar', function() {
+        $(document).on('click blur keypress', '#jumlah_keluar', function() {
             let totalStok = parseInt(stok.val()) - parseInt(this.value);
             total.val(Number(totalStok));
+            let total_harga = parseInt(harga.val()) * parseInt(this.value);
+           $('#total_harga').val(total_harga);
+
+           if(totalStok <= 0) {
+            var str = $("#stok").val();
+            $(this).val(str);
+            $('#total_stok').val("0");
+        }
+
+
+
         });
     </script>
 

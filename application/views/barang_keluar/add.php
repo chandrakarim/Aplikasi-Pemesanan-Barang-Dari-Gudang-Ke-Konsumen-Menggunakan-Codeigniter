@@ -26,7 +26,12 @@
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="id_barang_keluar">ID Transaksi Barang Keluar</label>
                     <div class="col-md-4">
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-id-card"></i></span>
+                    </div> 
                         <input value="<?= $id_barang_keluar; ?>" type="text" readonly="readonly" class="form-control">
+                        </div>
                         <?= form_error('id_barang_keluar', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
@@ -40,7 +45,10 @@
                     <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="konsumen_id">Konsumen</label>
                     <div class="col-md-5">
-                        <div class="input-group">
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw fa-user"></i></span>
+                    </div> 
                             <select name="konsumen_id" id="konsumen_id" class="custom-select">
                                 <option value="" selected disabled>Pilih Konsumen</option>
                                 <?php foreach ($konsumen as $k) : ?>
@@ -57,11 +65,14 @@
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="barang_id">Barang</label>
                     <div class="col-md-5">
-                        <div class="input-group">
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-boxes"></i></span>
+                    </div> 
                             <select name="barang_id" id="barang_id" class="custom-select">
                                 <option value="" selected disabled>Pilih Barang</option>
                                 <?php foreach ($barang as $b) : ?>
-                                    <option value="<?= $b['id_barang'] ?>"><?= $b['id_barang'] . ' | ' . $b['nama_barang'] ?></option>
+                                    <option data-harga="<?= $b['harga'] ?>" value="<?= $b['id_barang'] ?>"><?= $b['id_barang'] . ' | ' . $b['nama_barang'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <div class="input-group-append">
@@ -81,7 +92,7 @@
                     <label class="col-md-4 text-md-right" for="jumlah_keluar">Jumlah Keluar</label>
                     <div class="col-md-5">
                         <div class="input-group">
-                            <input value="<?= set_value('jumlah_keluar'); ?>" name="jumlah_keluar" id="jumlah_keluar" type="number" class="form-control" placeholder="Jumlah Keluar...">
+                            <input min="0" value="<?= set_value('jumlah_keluar'); ?>" name="jumlah_keluar" id="jumlah_keluar" type="number" class="form-control" placeholder="Jumlah Keluar...">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="satuan">Satuan</span>
                             </div>
@@ -92,7 +103,31 @@
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="total_stok">Total Stok</label>
                     <div class="col-md-5">
-                        <input readonly="readonly" id="total_stok" type="number" class="form-control">
+                    <input min="0" readonly="readonly" id="total_stok" type="number" class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-md-4 text-md-right" for="harga">Harga</label>
+                    <div class="col-md-5">
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-hand-holding-usd"></i></span>
+                    </div> 
+                    <input readonly="readonly" id="harga" type="number" class="form-control harga">
+                    </div>
+                        <?= form_error('harga', '<small class="text-danger">', '</small>'); ?>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-md-4 text-md-right" for="total_harga">Total Harga</label>
+                    <div class="col-md-5">
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-hand-holding-usd"></i></span>
+                    </div> 
+                    <input min="0" readonly="readonly" id="total_harga" type="number" class="form-control total_harga">
+                    </div>
+                        <?= form_error('total_harga', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
                 <div class="row form-group">

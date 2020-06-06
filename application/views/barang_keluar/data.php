@@ -50,8 +50,8 @@
                             <td><?= $bk['nama_konsumen']; ?></td>
                             <td><?= $bk['nama_barang']; ?></td>
                             <td><?= $bk['jumlah_keluar'] . ' ' . $bk['nama_satuan']; ?></td>
-                            <td><?= $bk['harga']; ?></td>
-                            <td><?= $bk['total_harga']; ?></td>
+                            <td><?= number_format($bk['harga']); ?></td>
+                            <td><?= number_format ($bk['total_harga']); ?></td>
                             <td><?= $bk['nama']; ?></td>
                             <td>
                                 <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('barangkeluar/delete/') . $bk['id_barang_keluar'] ?>" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></a>
