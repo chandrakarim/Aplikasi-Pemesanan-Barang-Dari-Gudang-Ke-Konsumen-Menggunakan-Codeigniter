@@ -194,7 +194,7 @@
             <footer class="sticky-footer bg-light">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Aplikasi Pemesanan Barang Dari Gudang Ke Konsumen Berbasisi Web 2020 &bull; by Yakob Ngutra</span>
+                        <span>Copyright &copy; Aplikasi Pemesanan Barang Dari Gudang Ke Konsumen Berbasis Web 2020</span>
                     </div>
                 </div>
             </footer>

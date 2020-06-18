@@ -25,10 +25,6 @@
                         <th>Nomor Telepon</th>
                         <td><?= userdata('no_telp'); ?></td>
                     </tr>
-                    <tr>
-                        <th>Role</th>
-                        <td class="text-capitalize"><?= userdata('role'); ?></td>
-                    </tr>
                 </table>
             </div>
         </div>

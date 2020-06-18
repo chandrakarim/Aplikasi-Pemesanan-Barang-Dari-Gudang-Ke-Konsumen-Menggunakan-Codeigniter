@@ -80,10 +80,9 @@ class Laporan extends CI_Controller
         $pdf = new FPDF();
         $pdf->AddPage('P', 'Letter');
         $pdf->SetFont('Times', 'B', 16);
-        $pdf->Cell(190, 7, 'Transaksi ' . $table, 0, 1, 'C');
+        $pdf->Cell(190, 7, 'Nota Transaksi ' . $table, 0, 1, 'C');
         $pdf->SetFont('Times', '', 10);
-        $pdf->Cell(190, 6, 'Skripsi Aplikasi Pemesanan Barang  Dari Gudang Ke Konsumen Menggunakan Framework (Codeigneiter & Bootstrap) ' , 0, 1, 'C');
-        $pdf->Cell(190, 6, 'Nama : Yakob Abner Ngutra Nim : 125410196', 0, 1, 'C');
+        $pdf->Cell(190, 6, 'Aplikasi Pemesanan Barang Dari Gudang Ke Konsumen Berbasis Web 2020' , 0, 1, 'C');
         $pdf->Cell(190, 4, 'Tanggal : ' . $tanggal, 0, 1, 'C');
 
         $pdf->Ln(10);
